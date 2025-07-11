@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ksearch</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav>
+    <a href="search.html?tab=all">All</a>
+    <a href="search.html?tab=images">Images</a>
+    <a href="search.html?tab=shopping">Shopping</a>
+    <a href="search.html?tab=ai">AI Tools</a>
+  </nav>
+
+  <div class="main-container">
+    <h1 class="logo-text">Ksearch</h1>
+    <form action="search.html" method="get">
+      <input type="text" name="q" placeholder="" />
+      <button type="submit">Search</button>
+    </form>
+  </div>
+
+  <script src="main.js"></script>
+<script>
+  document.getElementById("searchForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const query = document.getElementById("searchInput").value.trim();
+    if (query) {
+      window.location.href = `search.html?q=${encodeURIComponent(query)}&tab=all`;
+    }
+  });
+</script>
+
+</body>
+</html>
+
+

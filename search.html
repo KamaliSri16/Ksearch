@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ksearch | Results</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <h1>Ksearch</h1>
+
+  <form id="search-form" action="search.html" method="GET">
+    <input type="text" name="q" value="" placeholder="Search..." required />
+    <input type="hidden" name="tab" id="tab-input" value="all" />
+    <button type="submit">Search</button>
+  </form>
+
+  <nav>
+    <a href="#" data-tab="all" class="tab-btn active">All</a>
+    <a href="#" data-tab="images" class="tab-btn">Images</a>
+    <a href="#" data-tab="shopping" class="tab-btn">Shopping</a>
+    <a href="#" data-tab="ai" class="tab-btn">AI Tools</a>
+  </nav>
+
+  <!-- Results get injected here by main.js -->
+  <div class="results"></div>
+
+  <script>
+    // Update hidden tab input when clicking tabs
+    document.querySelectorAll('.tab-btn').forEach(tab => {
+      tab.addEventListener('click', e => {
+        e.preventDefault();
+        const tabName = tab.getAttribute('data-tab');
+        document.getElementById('tab-input').value = tabName;
+
+        const searchInput = document.querySelector('input[name="q"]');
+        const query = searchInput.value;
+        if (query) {
+          window.location.href = `search.html?q=${encodeURIComponent(query)}&tab=${tabName}`;
+        }
+      });
+    });
+
+    // Pre-fill search bar with query from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const queryValue = urlParams.get('q') || '';
+    const tabValue = urlParams.get('tab') || 'all';
+
+    document.querySelector('input[name="q"]').value = queryValue;
+
+    document.querySelectorAll('.tab-btn').forEach(tab => {
+      if (tab.getAttribute('data-tab') === tabValue) {
+        tab.classList.add('active');
+      } else {
+        tab.classList.remove('active');
+      }
+    });
+  </script>
+
+  <script src="main.js" defer></script>
+</body>
+</html>
